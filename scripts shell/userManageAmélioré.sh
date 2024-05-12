@@ -138,14 +138,14 @@ if [ $# -eq 0 ]; then
 fi
 
 # Traitement des options
-while getopts ":c:m:s:config:i:r:" opt; do
+while getopts ":c:m:s:config:i:g:" opt; do
     case ${opt} in
         c) creer_utilisateur ;;
         m) modifier_utilisateur ;;
         s) supprimer_utilisateur ;;
         config) configurer_sudoers ;;
         i) surveiller_integrite ;;
-        r) generer_rapport ;;
+        g) generer_rapport ;;
         \?) echo "Option invalide : $OPTARG" ;;
     esac
 done
