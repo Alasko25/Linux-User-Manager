@@ -263,7 +263,7 @@ surveillance &
 
 # Fonction pour générer des rapports
 generer_rapport() {
-    rapport_file="$default_log_directory"
+    rapport_file="$current_log_directory"
 
     # Obtenir les activités des utilisateurs
     echo "Activités des utilisateurs :" >> "$rapport_file"
