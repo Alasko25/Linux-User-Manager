@@ -206,13 +206,13 @@ configurer_sudoer() {
 # Fonction pour surveiller les commandes et gérer les autorisations
 surveillance() {
     # Vérifier si le fichier de journalisation des commandes existe
-    if [ ! -f "/var/log/command.log" ]; then
-        touch /var/log/command.log
+    if [ ! -f "${current_log_directory}command.log" ]; then
+        touch ${current_log_directory}command.log
     fi
 
     # Définir une fonction pour enregistrer les commandes
     log_commande() {
-        echo "$(date '+%Y-%m-%d %H:%M:%S') - $USER: $1" >> /var/log/command.log
+        echo "$(date '+%Y-%m-%d %H:%M:%S') - $USER: $1" >> ${current_log_directory}command.log
     }
 
     # Fonction pour vérifier le type de commande et les autorisations d'accès
@@ -241,10 +241,10 @@ surveillance() {
 
     # Fonction pour bloquer l'utilisateur en cas de demandes refusées répétées
     bloquer_utilisateur() {
-        today_denied_requests=$(grep -c "^$(date '+%Y-%m-%d') $USER.*refusée" /var/log/command.log)
+        today_denied_requests=$(grep -c "^$(date '+%Y-%m-%d') $USER.*refusée" ${current_log_directory}command.log)
         if [ "$today_denied_requests" -ge 5 ]; then
             echo "Blocage de l'activité pour $USER en raison de trop de demandes refusées."
-            echo "$(date '+%Y-%m-%d %H:%M:%S') - $USER: Activité bloquée" >> /var/log/command.log
+            echo "$(date '+%Y-%m-%d %H:%M:%S') - $USER: Activité bloquée" >> ${current_log_directory}command.log
             exit 1
         fi
     }
@@ -263,7 +263,7 @@ surveillance &
 
 # Fonction pour générer des rapports
 generer_rapport() {
-    rapport_file="/chemin/vers/votre/rapport.txt"
+    rapport_file="$default_log_directory"
 
     # Obtenir les activités des utilisateurs
     echo "Activités des utilisateurs :" >> "$rapport_file"
@@ -276,16 +276,37 @@ generer_rapport() {
     echo "Rapport généré avec succès : $rapport_file"
 }
 
-# Fonction pour spécifier un répertoire pour le stockage du fichier de journalisation
+# Définir le chemin par défaut pour la sauvegarde des rapports et des logs sortants
+default_log_directory="/var/log/"
+
+# Définir le chemin actuel de sauvegarde des logs et rapports
+current_log_directory="$default_log_directory"
+
+# Fonction pour changer le chemin de sauvegarde des logs et rapports
 logs() {
-    read -p "Spécifier le répertoire pour le stockage du fichier de journalisation : " log_directory
-    echo "Répertoire de journalisation spécifié : $log_directory"
+    read -p "Spécifier le nouvel emplacement pour le stockage du fichier de journalisation : " log_directory
+
+    # Vérifier si le répertoire spécifié existe
+    if [ ! -d "$log_directory" ]; then
+        echo "Répertoire spécifié non trouvé. Création du répertoire : $log_directory"
+        mkdir -p "$log_directory"
+    fi
+
+    # Copier les anciens logs dans le nouvel emplacement
+    cp "${current_log_directory}command.log" "$log_directory"
+    cp "${current_log_directory}rapport.txt" "$log_directory"
+
+    # Mettre à jour le chemin actuel de sauvegarde des logs et rapports
+    current_log_directory="$log_directory"
+    echo "Répertoire de journalisation mis à jour : $current_log_directory"
 }
 
 # Fonction pour réinitialiser les paramètres par défaut
 reinitialiser_parametres() {
     echo "Réinitialisation des paramètres par défaut..."
-    # Ajoutez ici le code pour réinitialiser les paramètres par défaut
+
+    # Remettre le chemin de sauvegarde par défaut
+    current_log_directory="$default_log_directory"
 }
 
 # Vérification du nombre d'arguments
