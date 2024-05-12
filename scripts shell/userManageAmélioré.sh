@@ -9,14 +9,15 @@ afficher_aide() {
     echo "Options :"
     echo "  -c : Créer un nouvel utilisateur"
     echo "  -m : Modifier les informations d'un utilisateur"
-    echo "  -s : Supprimer un utilisateur"
+    echo "  -d : Supprimer un utilisateur"
     echo "  -config : Configurer les droits sudoers"
     echo "  -i : Surveiller l'intégrité des fichiers système"
     echo "  -g : Générer des rapports"
     echo "  -h : Afficher cette aide"
     echo "  -f : Permet une exécution par création de sous-processus avec fork"
     echo "  -t : Permet une exécution par threads"
-    echo "  -l : Exécute le programme dans un sous-shell"
+    echo "  -s : Exécute le programme dans un sous-shell"
+    echo "  -l : logs"
     echo "  -r : Réinitialise les paramètres par défaut, utilisable uniquement par des administrateurs"
 }
 
@@ -159,14 +160,15 @@ while getopts ":c:m:s:config:i:g:h:f:t:l:r" opt; do
     case ${opt} in
         c) creer_utilisateur ;;
         m) modifier_utilisateur ;;
-        s) supprimer_utilisateur ;;
+        d) supprimer_utilisateur ;;
         config) configurer_sudoers ;;
         i) surveiller_integrite ;;
         g) generer_rapport ;;
         h) afficher_aide ;;
         f) echo "Exécution par création de sous-processus avec fork" ;;
         t) echo "Exécution par threads" ;;
-        l) echo "Exécution dans un sous-shell" ;;
+        s) s) ( $0 "$@" ) ;;
+        l) echo "logs" ;;
         r) echo "Réinitialisation des paramètres par défaut" ;;
         \?) echo "Option invalide : $OPTARG" ;;
     esac
