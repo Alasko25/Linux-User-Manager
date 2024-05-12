@@ -18,13 +18,73 @@ creer_utilisateur() {
 
 # Fonction pour modifier les informations d'un utilisateur
 modifier_utilisateur() {
-    read -p "Nom d'utilisateur à modifier : " username
-    read -p "Nouveau groupe primaire : " primary_group
-    read -p "Nouveau groupe secondaire : " secondary_group
-    read -p "Nouveau répertoire personnel : " home_dir
+    local username=""
+    local newUsername=""
+    local primary_group=""
+    local secondary_group=""
+    local home_dir=""
+    local change_password=false
 
-    sudo usermod -g $primary_group -G $secondary_group -d $home_dir $username
+    # Extraire le nom d'utilisateur du premier argument
+    username="$1"
+    shift
+
+    # Vérifier si le nom d'utilisateur est fourni
+    if [ -z "$username" ]; then
+        echo "Nom d'utilisateur manquant."
+        return 1
+    fi
+
+    # Parcourir les arguments
+    for arg in "$@"; do
+        case $arg in
+            uname=*)
+                newUsername="${arg#uname=}"
+                ;;
+            gname=*)
+                primary_group="${arg#gname=}"
+                ;;
+            sgname=*)
+                secondary_group="${arg#sgname=}"
+                ;;
+            hdir=*)
+                home_dir="${arg#hdir=}"
+                ;;
+            pass)
+                change_password=true
+                ;;
+            *)
+                echo "Argument invalide : $arg"
+                return 1
+                ;;
+        esac
+    done
+
+    # Vérifier si le mot de passe doit être modifié
+    if $change_password; then
+        # Demander le mot de passe actuel de l'utilisateur
+        read -sp "Mot de passe actuel de $username : " current_password
+        echo
+
+        # Vérifier si le mot de passe actuel est correct
+        if sudo echo "$username:$current_password" | sudo chpasswd &> /dev/null; then
+            # Demander le nouveau mot de passe
+            read -sp "Nouveau mot de passe pour $username : " new_password
+            echo
+
+            # Modifier le mot de passe de l'utilisateur
+            echo "$username:$new_password" | sudo chpasswd
+            echo "Mot de passe de l'utilisateur $username modifié avec succès."
+        else
+            echo "Mot de passe incorrect pour l'utilisateur $username. La modification est annulée."
+            return 1
+        fi
+    fi
+
+    # Modifier les informations de l'utilisateur
+    sudo usermod ${username:+"-l"} $newUsername ${primary_group:+"-g"} $primary_group ${secondary_group:+"-G"} $secondary_group ${home_dir:+"-d"} $home_dir $username
 }
+
 
 # Fonction pour supprimer un utilisateur
 supprimer_utilisateur() {
@@ -71,26 +131,21 @@ generer_rapport() {
     echo "Rapport généré avec succès : $rapport_file"
 }
 
-# Menu principal
-while true; do
-    echo "1. Créer un nouvel utilisateur"
-    echo "2. Modifier les informations d'un utilisateur"
-    echo "3. Supprimer un utilisateur"
-    echo "4. Configurer les droits sudoers"
-    echo "5. Surveiller l'intégrité des fichiers système"
-    echo "6. Générer des rapports"
-    echo "7. Quitter"
+# Vérification du nombre d'arguments
+if [ $# -eq 0 ]; then
+    echo "Utilisation : $0 [-c | -m | -s | -config | -i | -r]"
+    exit 1
+fi
 
-    read -p "Choix : " choice
-
-    case $choice in
-        1) creer_utilisateur ;;
-        2) modifier_utilisateur ;;
-        3) supprimer_utilisateur ;;
-        4) configurer_sudoers ;;
-        5) surveiller_integrite ;;
-        6) generer_rapport ;;
-        7) exit ;;
-        *) echo "Choix invalide";;
+# Traitement des options
+while getopts ":c:m:s:config:i:r:" opt; do
+    case ${opt} in
+        c) creer_utilisateur ;;
+        m) modifier_utilisateur ;;
+        s) supprimer_utilisateur ;;
+        config) configurer_sudoers ;;
+        i) surveiller_integrite ;;
+        r) generer_rapport ;;
+        \?) echo "Option invalide : $OPTARG" ;;
     esac
 done
