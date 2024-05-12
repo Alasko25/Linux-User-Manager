@@ -3,6 +3,23 @@
 # Définir le hachage MD5 enregistré pour surveiller l'intégrité du fichier
 saved_md5="hachage_md5_enregistré"
 
+# Fonction d'aide
+afficher_aide() {
+    echo "Utilisation : $0 [Options] ..."
+    echo "Options :"
+    echo "  -c : Créer un nouvel utilisateur"
+    echo "  -m : Modifier les informations d'un utilisateur"
+    echo "  -s : Supprimer un utilisateur"
+    echo "  -config : Configurer les droits sudoers"
+    echo "  -i : Surveiller l'intégrité des fichiers système"
+    echo "  -g : Générer des rapports"
+    echo "  -h : Afficher cette aide"
+    echo "  -f : Permet une exécution par création de sous-processus avec fork"
+    echo "  -t : Permet une exécution par threads"
+    echo "  -l : Exécute le programme dans un sous-shell"
+    echo "  -r : Réinitialise les paramètres par défaut, utilisable uniquement par des administrateurs"
+}
+
 # Fonction pour créer un nouvel utilisateur
 creer_utilisateur() {
     read -p "Nom d'utilisateur : " username
@@ -138,7 +155,7 @@ if [ $# -eq 0 ]; then
 fi
 
 # Traitement des options
-while getopts ":c:m:s:config:i:g:" opt; do
+while getopts ":c:m:s:config:i:g:h:f:t:l:r" opt; do
     case ${opt} in
         c) creer_utilisateur ;;
         m) modifier_utilisateur ;;
@@ -146,6 +163,11 @@ while getopts ":c:m:s:config:i:g:" opt; do
         config) configurer_sudoers ;;
         i) surveiller_integrite ;;
         g) generer_rapport ;;
+        h) afficher_aide ;;
+        f) echo "Exécution par création de sous-processus avec fork" ;;
+        t) echo "Exécution par threads" ;;
+        l) echo "Exécution dans un sous-shell" ;;
+        r) echo "Réinitialisation des paramètres par défaut" ;;
         \?) echo "Option invalide : $OPTARG" ;;
     esac
 done
