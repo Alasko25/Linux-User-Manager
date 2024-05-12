@@ -167,7 +167,7 @@ while getopts ":c:m:s:config:i:g:h:f:t:l:r" opt; do
         h) afficher_aide ;;
         f) echo "Exécution par création de sous-processus avec fork" ;;
         t) echo "Exécution par threads" ;;
-        s) s) ( $0 "$@" ) ;;
+        s) ( $0 "$@" ) ;;
         l) echo "logs" ;;
         r) echo "Réinitialisation des paramètres par défaut" ;;
         \?) echo "Option invalide : $OPTARG" ;;
