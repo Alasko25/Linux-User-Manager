@@ -17,7 +17,7 @@ afficher_aide() {
     echo "  -f : Permet une exécution par création de sous-processus avec fork"
     echo "  -t : Permet une exécution par threads"
     echo "  -s : Exécute le programme dans un sous-shell"
-    echo "  -l : logs"
+    echo "  -l : Permet de spécifier un répertoire pour le stockage du fichier de journalisation"
     echo "  -r : Réinitialise les paramètres par défaut, utilisable uniquement par des administrateurs"
 }
 
@@ -149,6 +149,18 @@ generer_rapport() {
     echo "Rapport généré avec succès : $rapport_file"
 }
 
+# Fonction pour spécifier un répertoire pour le stockage du fichier de journalisation
+logs() {
+    read -p "Spécifier le répertoire pour le stockage du fichier de journalisation : " log_directory
+    echo "Répertoire de journalisation spécifié : $log_directory"
+}
+
+# Fonction pour réinitialiser les paramètres par défaut
+reinitialiser_parametres() {
+    echo "Réinitialisation des paramètres par défaut..."
+    # Ajoutez ici le code pour réinitialiser les paramètres par défaut
+}
+
 # Vérification du nombre d'arguments
 if [ $# -eq 0 ]; then
     echo "Utilisation : $0 [-c | -m | -s | -config | -i | -r]"
@@ -156,7 +168,7 @@ if [ $# -eq 0 ]; then
 fi
 
 # Traitement des options
-while getopts ":c:m:s:config:i:g:h:f:t:l:r" opt; do
+while getopts ":c:m:d:config:i:g:h:f:t:s:l:r" opt; do
     case ${opt} in
         c) creer_utilisateur ;;
         m) modifier_utilisateur ;;
@@ -168,8 +180,8 @@ while getopts ":c:m:s:config:i:g:h:f:t:l:r" opt; do
         f) echo "Exécution par création de sous-processus avec fork" ;;
         t) echo "Exécution par threads" ;;
         s) ( $0 "$@" ) ;;
-        l) echo "logs" ;;
-        r) echo "Réinitialisation des paramètres par défaut" ;;
+        l) logs ;;
+        r) reinitialiser_parametres ;;
         \?) echo "Option invalide : $OPTARG" ;;
     esac
 done
