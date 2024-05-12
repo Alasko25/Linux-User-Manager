@@ -181,6 +181,7 @@ configurer_sudoer() {
             # Modifier les paramètres du sudoer existant
             sudo sed -i "/^$username ALL=/c $username ALL=($username) $updated_commands" /etc/sudoers
             echo "Paramètres pour $username mis à jour dans le fichier sudoers."
+            ;;
 
         3)
             # Supprimer sudoer
