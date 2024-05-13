@@ -317,20 +317,59 @@ if [ $# -eq 0 ]; then
 fi
 
 # Traitement des options
-while getopts ":c:m:d:config:i:g:h:f:t:s:l:r" opt; do
-    case ${opt} in
-        c) ./newUser.sh ;;
-        m) ./modifyUser.sh ;;
-        d) ./deleteUser.sh ;;
-        config) ./configSudoer.sh ;;
-        i) surveiller_integrite ;;
-        g) ./generateRapport.sh ;;
-        h) afficher_aide ;;
-        f) echo "Exécution par création de sous-processus avec fork" ;;
-        t) echo "Exécution par threads" ;;
-        s) ( $0 "$@" ) ;;
-        l) logs ;;
-        r) reinitialiser_parametres ;;
-        \?) echo "Option invalide : $OPTARG" ;;
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -c)
+            ./newUser.sh
+            shift
+            ;;
+        -m)
+            ./modifyUser.sh
+            shift
+            ;;
+        -d)
+            ./deleteUser.sh
+            shift
+            ;;
+        -config)
+            ./configSudoer.sh
+            shift
+            ;;
+        -i)
+            surveiller_integrite
+            shift
+            ;;
+        -g)
+            ./generateRapport.sh
+            shift
+            ;;
+        -h)
+            afficher_aide
+            exit 0
+            ;;
+        -f)
+            echo "Exécution par création de sous-processus avec fork"
+            shift
+            ;;
+        -t)
+            echo "Exécution par threads"
+            shift
+            ;;
+        -s)
+            echo "Exécuter le script dans un sous-shell"
+            shift
+            ;;
+        -l)
+            logs
+            shift
+            ;;
+        -r)
+            reinitialiser_parametres
+            shift
+            ;;
+        *)
+            echo "Option invalide : $1"
+            shift
+            ;;
     esac
 done
