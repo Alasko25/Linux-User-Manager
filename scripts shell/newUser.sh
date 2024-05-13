@@ -1,5 +1,7 @@
+#!/bin/bash
+
 # Fonction pour créer un nouvel utilisateur
-creer_utilisateur() {
+
     read -p "Nom d'utilisateur : " username
     read -p "Mot de passe : " -s password
     echo
@@ -9,4 +11,3 @@ creer_utilisateur() {
 
     sudo useradd -m -g $primary_group -G $secondary_group -d $home_dir $username
     echo "$username:$password" | sudo chpasswd
-}
