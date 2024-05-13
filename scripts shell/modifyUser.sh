@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Fonction pour modifier les informations d'un utilisateur
-    local username=""
-    local newUsername=""
-    local primary_group=""
-    local secondary_group=""
-    local home_dir=""
-    local change_password=false
+    username=""
+    newUsername=""
+    primary_group=""
+    secondary_group=""
+    home_dir=""
+    change_password=false
 
     # Extraire le nom d'utilisateur du premier argument
     username="$1"
