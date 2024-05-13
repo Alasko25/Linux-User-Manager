@@ -37,9 +37,6 @@ surveillance() {
                 bloquer_utilisateur
                 return 1
             fi
-        else
-            echo "Commande de lecture autorisée: $1"
-        fi
     }
 
     # Fonction pour bloquer l'utilisateur en cas de demandes refusées répétées
