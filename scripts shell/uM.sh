@@ -2,8 +2,8 @@
 
 # Bloc d'initialisation
 if [ -z "$init" ]; then
-    init="true"
-    current_log_directory="/var/log/"
+    $init="true"
+    $current_log_directory="/var/log/"
 fi
 
 # Fonction pour surveiller les commandes et gérer les autorisations
