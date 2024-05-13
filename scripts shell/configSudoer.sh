@@ -1,5 +1,7 @@
+#!/bin/bash
+
 # Fonction pour configurer les paramètres d'un utilisateur sudo (sudoer)
-configurer_sudoer() {
+
     # Afficher le menu
     echo "Menu :"
     echo "1. Créer sudoer"
@@ -89,4 +91,3 @@ configurer_sudoer() {
             return 1
             ;;
     esac
-}
