@@ -83,7 +83,7 @@ while [[ $# -gt 0 ]]; do
             shift
             ;;
         -h)
-            ./prinhelp.sh
+            ./printHelp.sh
             exit 0
             ;;
         -f)
@@ -99,11 +99,11 @@ while [[ $# -gt 0 ]]; do
             shift
             ;;
         -l)
-            ./createlogs.sh
+            ./createLogs.sh
             shift
             ;;
         -r)
-            ./resetparams.sh
+            ./resetParams.sh
             shift
             ;;
         *)
