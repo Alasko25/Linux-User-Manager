@@ -1,14 +1,13 @@
 #!/bin/bash
 
-# Définir le chemin par défaut pour la sauvegarde des rapports et des logs sortants
-default_log_directory="/var/log/"
-
-# Définir le chemin actuel de sauvegarde des logs et rapports
-current_log_directory="$default_log_directory"
-
-# Fonction pour générer des rapports
+ # Généreration des rapports
 
     rapport_file="$current_log_directory"
+
+    # Vérifier si le répertoire de log existe, sinon le créer
+if [ ! -d "$default_log_directory" ]; then
+    mkdir -p "$rapport_file"
+fi
 
     # Obtenir les activités des utilisateurs
     echo "Activités des utilisateurs :" >> "$rapport_file"
