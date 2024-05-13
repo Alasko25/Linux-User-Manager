@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Bloc d'initialisation
+if [ -z "$init" ]; then
+    init="true"
+    current_log_directory="/var/log/"
+fi
+
 # Fonction pour surveiller les commandes et gérer les autorisations
 surveillance() {
     # Vérifier si le fichier de journalisation des commandes existe
