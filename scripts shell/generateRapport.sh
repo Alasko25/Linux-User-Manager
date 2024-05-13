@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Définir le chemin par défaut pour la sauvegarde des rapports et des logs sortants
 default_log_directory="/var/log/"
 
