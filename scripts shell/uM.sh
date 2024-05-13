@@ -55,8 +55,7 @@ surveillance() {
     done
 }
 
-
-# Traitement des options
+#traitement des differentes options
 while [[ $# -gt 0 ]]; do
     case "$1" in
         -c)
@@ -84,7 +83,7 @@ while [[ $# -gt 0 ]]; do
             shift
             ;;
         -h)
-            afficher_aide
+            ./prinhelp.sh
             exit 0
             ;;
         -f)
@@ -100,11 +99,11 @@ while [[ $# -gt 0 ]]; do
             shift
             ;;
         -l)
-            logs
+            ./createlogs.sh
             shift
             ;;
         -r)
-            reinitialiser_parametres
+            ./resetparams.sh
             shift
             ;;
         *)
@@ -113,3 +112,4 @@ while [[ $# -gt 0 ]]; do
             ;;
     esac
 done
+
