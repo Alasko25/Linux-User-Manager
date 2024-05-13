@@ -1,5 +1,6 @@
+#!/bin/bash
+
 # Fonction pour modifier les informations d'un utilisateur
-modifier_utilisateur() {
     local username=""
     local newUsername=""
     local primary_group=""
@@ -65,4 +66,3 @@ modifier_utilisateur() {
 
     # Modifier les informations de l'utilisateur
     sudo usermod ${username:+"-l"} $newUsername ${primary_group:+"-g"} $primary_group ${secondary_group:+"-G"} $secondary_group ${home_dir:+"-d"} $home_dir $username
-}
