@@ -319,12 +319,12 @@ fi
 # Traitement des options
 while getopts ":c:m:d:config:i:g:h:f:t:s:l:r" opt; do
     case ${opt} in
-        c) creer_utilisateur ;;
-        m) modifier_utilisateur ;;
-        d) supprimer_utilisateur ;;
-        config) configurer_sudoers ;;
+        c) ./newUser.sh ;;
+        m) ./modifyUser.sh ;;
+        d) ./deleteUser.sh ;;
+        config) ./configSudoer.sh ;;
         i) surveiller_integrite ;;
-        g) generer_rapport ;;
+        g) ./generateRapport.sh ;;
         h) afficher_aide ;;
         f) echo "Exécution par création de sous-processus avec fork" ;;
         t) echo "Exécution par threads" ;;
