@@ -2,7 +2,7 @@
 
  # Généreration des rapports
 
-    rapport_file="$current_log_directory"
+    $rapport_file="$current_log_directory"
 
     # Vérifier si le répertoire de log existe, sinon le créer
 if [ ! -d "$default_log_directory" ]; then
