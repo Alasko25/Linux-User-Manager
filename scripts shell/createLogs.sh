@@ -10,9 +10,15 @@
         mkdir -p "$log_directory"
     fi
 
-    # Copier les anciens logs dans le nouvel emplacement
+    # Copier les anciens logs dans le nouvel emplacement s'ils existent
+if [ -f "${current_log_directory}command.log" ]; then
     cp "${current_log_directory}command.log" "$log_directory"
+fi
+
+if [ -f "${current_log_directory}rapport.txt" ]; then
     cp "${current_log_directory}rapport.txt" "$log_directory"
+fi
+
 
     # Mettre à jour le chemin actuel de sauvegarde des logs et rapports
     current_log_directory="$log_directory"
