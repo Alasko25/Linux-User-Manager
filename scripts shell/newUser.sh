@@ -4,7 +4,6 @@
 
 read -p "Nom d'utilisateur : " username
 read -p "Mot de passe (Laisser vide pour aucun mot de passe) : " -s password
-echo
 read -p "Groupe primaire (Laisser vide pour par défaut) : " primary_group
 read -p "Groupe secondaire (Laisser vide pour par défaut) : " secondary_group
 read -p "Répertoire personnel (Laisser vide pour par défaut) : " home_dir
