@@ -54,11 +54,30 @@ for arg in "$@"; do
     esac
 done
 
-# Vérifier si le mot de passe doit être modifié
+# Vérifier si le mot de passe doit être changé.
 if $change_password; then
-    if ! sudo passwd "$username" ; then
-        echo "Mot de passe incorrect pour l'utilisateur $username. La modification est annulée."
-        exit 1
+    # Obtenir la ligne correspondante dans /etc/shadow pour l'utilisateur spécifié
+    shadow_line=$(sudo grep "^$username:" /etc/shadow)
+
+    # Extraire le deuxième champ de la ligne (le mot de passe chiffré)
+    encrypted_password=$(echo "$shadow_line" | cut -d: -f2)
+
+    # Vérifier si le mot de passe est non défini (NP) ou s'il est vide
+    if [[ "$encrypted_password" == "!" || -z "$encrypted_password" ]]; then
+        read -p "Mot de passe (Laisser vide pour aucun mot de passe) : " -s password
+        echo
+        # Vérifier si un mot de passe a été fourni et le définir si nécessaire
+        if [ -n "$password" ] && [ ! -z "$password" ]; then
+            echo "$username:$password" | sudo chpasswd
+        else
+           echo "Aucun mot de passe fourni."
+        fi
+    else
+        # Modification du mot de passe.
+        if ! sudo -u "$username" passwd "$username" ; then
+            echo "Mot de passe incorrect pour l'utilisateur $username. La modification est annulée."
+            exit 1
+        fi
     fi
 fi
 
