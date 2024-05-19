@@ -6,15 +6,20 @@ if [ -z "$init" ]; then
     current_log_directory="/var/log/"
 fi
 
+#Cas de commande appeler sans option
+if [ $# -eq 0 ]; then 
+    ./printHelp.sh
+else
 #traitement des differentes options
-while [[ $# -gt 0 ]]; do
     case "$1" in
         -c)
             ./newUser.sh
             shift
             ;;
+            
         -m)
-            ./modifyUser.sh
+            shift
+            ./modifyUser.sh "$@"
             shift
             ;;
         -d)
@@ -25,8 +30,7 @@ while [[ $# -gt 0 ]]; do
             ./configSudoer.sh
             shift
             ;;
-        -i)
-            surveiller_integrite
+        -i)            
             ./surveillance.sh
             shift
             ;;
@@ -63,8 +67,8 @@ while [[ $# -gt 0 ]]; do
             ;;
         *)
             echo "Option invalide : $1"
-            shift
+            exit 100
             ;;
     esac
-done
+fi
 
