@@ -14,6 +14,7 @@ if [ -f "$default_directory_file" ]; then
     current_default_log_directory=$(cat "$default_directory_file")
 else
     current_default_log_directory="$initial_default_log_directory"
+    echo "$current_default_log_directory" > "$default_directory_file"
 fi
 
 current_log_directory="$current_default_log_directory"
