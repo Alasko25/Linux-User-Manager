@@ -63,6 +63,7 @@ else
             ;;
         *)
             echo "Option invalide : $1"
+            ./createLogs.sh "Option invalide : $1"
             exit 100
             ;;
     esac
