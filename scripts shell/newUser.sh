@@ -31,5 +31,6 @@ if id "$username" &>/dev/null; then
     ./createLogs.sh "L'utilisateur $username a été créé avec succès."
 else
     echo "Erreur: L'utilisateur $username n'a pas pu être créé."
+    ./createLogs.sh "Erreur: L'utilisateur $username n'a pas pu être créé."
     exit 101
 fi
