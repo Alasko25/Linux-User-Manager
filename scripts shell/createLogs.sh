@@ -67,6 +67,7 @@ change_log_directory() {
     # Mettre à jour le chemin actuel de sauvegarde des logs
     current_log_directory="$new_directory/"
     echo "Répertoire de journalisation mis à jour : $current_log_directory"
+    ./createLogs.sh "Répertoire de journalisation mis à jour : $current_log_directory"
 
     # Mettre à jour le répertoire par défaut courant et sauvegarder dans un fichier
     current_default_log_directory="$new_directory/"
@@ -88,4 +89,5 @@ if [ -n "$log_directory" ]; then
     change_log_directory "$log_directory"
 else
     echo "Utilisation du répertoire de journalisation par défaut courant : $current_default_log_directory"
+    ./createLogs.sh "Utilisation du répertoire de journalisation par défaut courant : $current_default_log_directory"
 fi
