@@ -51,6 +51,7 @@ for arg in "$@"; do
             ;;
         *)
             echo "Option invalide : $arg" >> /dev/null
+	    ./createLogs.sh echo "Option invalide : $arg"
             exit 101
             ;;
     esac
@@ -73,6 +74,7 @@ if $change_password; then
             echo "$username:$password" | sudo chpasswd
         else
            echo "Aucun mot de passe fourni."
+	   ./createLogs.sh "Aucun mot de passe fourni."
         fi
     else
         # Modification du mot de passe.
@@ -122,6 +124,7 @@ if $kayn_option; then
 	if [ $? -eq 0 ]; then
 	    echo "Informations de l'utilisateur $username modifiées avec succès."
      	    ./createLogs.sh "Informations de l'utilisateur $username modifiées avec succès."
+	    exit 0
 	else
 	    echo "Échec de la modification des informations de l'utilisateur $username."
      	    ./createLogs.sh "Échec de la modification des informations de l'utilisateur $username."
