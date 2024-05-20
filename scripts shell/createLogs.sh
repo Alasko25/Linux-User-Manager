@@ -19,6 +19,12 @@ fi
 
 current_log_directory="$current_default_log_directory"
 
+# Vérifier si le répertoire de journalisation par défaut initial existe
+if [ ! -d "$initial_default_log_directory" ]; then
+    echo "Répertoire de journalisation par défaut initial introuvable. Création du répertoire : $initial_default_log_directory"
+    sudo mkdir -p "$initial_default_log_directory"
+fi
+
 # Fonction pour gérer les sorties standard et d'erreur vers le journal
 log_command() {
     # Obtenir la date et l'heure au format yyyy-mm-dd-hh-mm-ss
@@ -28,16 +34,19 @@ log_command() {
     local username=$(whoami)
 
     # Extraire la dernière commande exécutée
-    local command=$(history 1 | sed 's/^ *[0-9]* *//')
+    local command=$(history 1 | sed 's/^ [0-9] *//')
+    
+    #message a enregistrer
+    local message="$1"
 
     # Construire le message complet avec le format requis
-    local log_entry="$timestamp : $username : COMMAND : $command"
+    local log_entry="$timestamp : $username : COMMAND : $command : $message"
 
     # Écrire le message dans le journal history.log
     echo "$log_entry" >> "${current_log_directory}history.log"
 
     # Afficher le message sur le terminal
-    echo "$log_entry"
+    #echo "$log_entry"
 }
 
 # Fonction pour changer le répertoire de journalisation
@@ -64,11 +73,12 @@ change_log_directory() {
     echo "$current_default_log_directory" > "$default_directory_file"
 }
 
-# Vérifier si le répertoire de journalisation par défaut initial existe
-if [ ! -d "$initial_default_log_directory" ]; then
-    echo "Répertoire de journalisation par défaut initial introuvable. Création du répertoire : $initial_default_log_directory"
-    mkdir -p "$initial_default_log_directory"
+#cas de generation de log
+if [ ! $# -eq 0 ]; then
+	log_command "$1"
+	exit 0;
 fi
+
 
 # Demander à l'utilisateur de spécifier un nouveau répertoire de journalisation
 read -p "Spécifier le nouvel emplacement pour le stockage du fichier de journalisation (laisser vide pour utiliser le répertoire par défaut) : " log_directory
@@ -79,12 +89,3 @@ if [ -n "$log_directory" ]; then
 else
     echo "Utilisation du répertoire de journalisation par défaut courant : $current_default_log_directory"
 fi
-
-# Configurer un piège pour intercepter les commandes avant leur exécution
-trap 'log_command' DEBUG
-
-# Exemple d'utilisation de la fonction log_command
-log_command "INFOS" "Le répertoire de journalisation a été mis à jour avec succès."
-
-# Démarrer un shell interactif pour permettre à l'utilisateur de saisir des commandes
-exec "$SHELL"
