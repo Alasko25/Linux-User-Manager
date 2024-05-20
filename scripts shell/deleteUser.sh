@@ -8,6 +8,10 @@ read -p "Nom d'utilisateur à supprimer : " username
 if id "$username" &>/dev/null; then
     # Supprimer l'utilisateur s'il existe
     sudo userdel -r "$username" > /dev/null 2>&1
+    
+    # supprime l'utilisateur des sudoers s'il y existe
+    sudo sed -i "/^$username /d" /etc/sudoers
+    
     echo "Utilisateur $username supprimé avec succès."
 else
     echo "Utilisateur $username non trouvé."
