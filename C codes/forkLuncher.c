@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-void exec_fork(char *script_path) {
+void exec_fork(char* script_path[]) {
     printf("Exécution du script shell en arrière-plan...\n");
 
     pid_t pid = fork(); // Création d'un nouveau processus
@@ -13,23 +13,24 @@ void exec_fork(char *script_path) {
         exit(EXIT_FAILURE);
     } else if (pid == 0) { // Processus fils
         // Exécution du script shell
-        execlp("sh", "sh", script_path, NULL);
+        printf("Le fils %d: debut du script \n", getpid());
+        execv("../scripts shell/uM.sh", script_path);
         // Si execvp retourne, cela signifie qu'il y a eu une erreur
-        perror("execlp");
+        perror("execv");
         exit(EXIT_FAILURE);
     } else { // Processus parent
         // Attendre que le processus fils se termine
         wait(NULL);
+        printf("Le pere %d: ", getpid());
         printf("Le script shell a été exécuté en arrière-plan.\n");
     }
 }
 
 int main(int argc, char *argv[]) {
-    if (argc != 2) {
-        fprintf(stderr, "Usage: %s <script_shell>\n", argv[0]);
-        exit(EXIT_FAILURE);
-    }
 
-    exec_fork(argv[1]);
+    printf("Le pere %d: ouverture du fils \n", getpid());
+
+    exec_fork(argv);
+    
     return 0;
 }
