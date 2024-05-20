@@ -39,18 +39,25 @@ else
             exit 0
             ;;
         -f)
+            shift
             echo "Exécution par création de sous-processus avec fork"
-            ./forkLuncher.c
+            gcc ../"C codes"/forkLuncher.c -o ../"C codes"/forkLunch
+            chmod u+x ../"C codes"/forkLunch
+            ../"C codes"/forkLunch "$@"
             shift
             ;;
         -t)
+            shift
             echo "Exécution par threads"
-            ./threadLuncher.c
+            ../C codes/threadLuncher.c
             shift
             ;;
         -s)
+            shift
             echo "Exécuter le script dans un sous-shell"
-            ./subshellLuncher.c
+            gcc ../"C codes"/subshellLuncher.c -o ../"C codes"/subshellLunch
+            chmod u+x ../"C codes"/subshellLunch
+            ../"C codes"/subshellLunch "/home/user/'Linux-User-Manager-main'/'scripts shell'/uM.sh" "$@"
             shift
             ;;
         -l)
