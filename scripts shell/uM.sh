@@ -26,16 +26,12 @@ else
             ./deleteUser.sh
             shift
             ;;
-        -config)
+        -g)
             ./configSudoer.sh
             shift
             ;;
         -i)            
             ./surveillance.sh
-            shift
-            ;;
-        -g)
-            ./generateRapport.sh
             shift
             ;;
         -h)
@@ -71,4 +67,3 @@ else
             ;;
     esac
 fi
-
