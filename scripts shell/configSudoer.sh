@@ -18,6 +18,10 @@
 		# Vérifier si l'utilisateur existe
 		if ! grep -q "^$username:" /etc/passwd; then
 		    echo "Utilisateur $username n'existe pas dans le système."
+		    
+		    #creation de log
+		    ./createLogs.sh "Utilisateur $username n'existe pas dans le système."
+		    
 		    exit 103
 		fi
 
@@ -44,6 +48,11 @@
 		commands_with_path=${commands_with_path%, *}
 		echo "$username ALL=(ALL) $commands_with_path" >> /etc/sudoers
 		echo "Utilisateur $username configuré en tant que sudoer dans le fichier sudoers."
+		
+		# creation de log
+		./createLogs.sh "Utilisateur $username configuré en tant que sudoer dans le fichier sudoers."
+		
+		exit 0
             ;;
         2)
             # Modifier sudoer
@@ -52,12 +61,20 @@
             # Vérifier si l'utilisateur existe
             if ! grep -q "^$username:" /etc/passwd; then
                 echo "Utilisateur $username n'existe pas dans le système."
+                
+                #creation de log
+                ./createLogs.sh "Utilisateur $username n'existe pas dans le système."
+                
                 exit 103
             fi
 
             # Vérifier si l'utilisateur est sudoer
             if ! sudo grep "$username" /etc/sudoers > /dev/null 2>&1; then
                 echo "Utilisateur $username n'est pas sudoer."
+                
+                #creation de log
+                ./createLogs.sh "Utilisateur $username n'est pas sudoer."
+                
                 exit 104
             fi
 
@@ -132,13 +149,22 @@
 		            ;;
 		        *)
 		            echo "Option invalide."
+		            
+		            #creation de log
+               		    ./createLogs.sh "Option invalide."
+               		    
 		            exit 101
 		            ;;
 		    esac
 
 		    # Modifier les paramètres du sudoer existant
 		    sudo sed -i "/^$username ALL=/c $username ALL=(ALL) $updated_commands" /etc/sudoers
-		    echo "Paramètres pour $username mis à jour dans le fichier sudoers."		    
+		    echo "Paramètres pour $username mis à jour dans le fichier sudoers."
+		    
+		    #creation de log
+               	    ./createLogs.sh "Paramètres pour $username mis à jour dans le fichier sudoers."
+               	    
+               	    exit 0		    
             fi
             
             ;;
@@ -156,9 +182,18 @@
             # Supprimer l'utilisateur en tant que sudoer
             sudo sed -i "/^$username ALL=(ALL) /d" /etc/sudoers
             echo "Utilisateur $username supprimé en tant que sudoer dans le fichier sudoers."
+            
+            #creation de log
+            ./createLogs.sh "Utilisateur $username supprimé en tant que sudoer dans le fichier sudoers."
+            
+            exit 0
             ;;
         *)
             echo "Option invalide."
+            
+            #creation de log
+            ./createLogs.sh "Option invalide."
+            
             exit 101
             ;;
     esac
