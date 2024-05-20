@@ -16,13 +16,15 @@ shift
 # Vérifier si le nom d'utilisateur est fourni
 if [ -z "$username" ]; then
     echo "Nom d'utilisateur manquant."
-    exit 1
+    ./createLogs.sh "Nom d'utilisateur manquant."
+    exit 101
 fi
 
 # Vérifier si l'utilisateur existe
 if ! id "$username" &>/dev/null; then
     echo "L'utilisateur $username n'existe pas."
-    exit 1
+    ./createLogs.sh "L'utilisateur $username n'existe pas."
+    exit 101
 fi
 
 # Parcourir les arguments
@@ -49,7 +51,7 @@ for arg in "$@"; do
             ;;
         *)
             echo "Option invalide : $arg" >> /dev/null
-            exit 1
+            exit 101
             ;;
     esac
 done
@@ -76,7 +78,8 @@ if $change_password; then
         # Modification du mot de passe.
         if ! sudo -u "$username" passwd "$username" ; then
             echo "Mot de passe incorrect pour l'utilisateur $username. La modification est annulée."
-            exit 1
+	    ./createLogs.sh "Mot de passe incorrect pour l'utilisateur $username. La modification est annulée."
+            exit 101
         fi
     fi
 fi
@@ -94,7 +97,8 @@ if $kayn_option; then
 		usermod_command+=" -g $primary_group"
 	    else
 		echo "Le groupe primaire $primary_group n'existe pas."
-		exit 1
+  		./createLogs.sh "Le groupe primaire $primary_group n'existe pas."
+		exit 101
 	    fi
 	fi
 
@@ -104,7 +108,8 @@ if $kayn_option; then
 		usermod_command+=" -G $secondary_group"
 	    else
 		echo "Le groupe secondaire $secondary_group n'existe pas."
-		exit 1
+  		./createLogs.sh "Le groupe secondaire $secondary_group n'existe pas."
+		exit 101
 	    fi
 	fi
 
@@ -116,8 +121,10 @@ if $kayn_option; then
 	# Vérifier si la commande usermod a réussi
 	if [ $? -eq 0 ]; then
 	    echo "Informations de l'utilisateur $username modifiées avec succès."
+     	    ./createLogs.sh "Informations de l'utilisateur $username modifiées avec succès."
 	else
 	    echo "Échec de la modification des informations de l'utilisateur $username."
-	    exit 1
+     	    ./createLogs.sh "Échec de la modification des informations de l'utilisateur $username."
+	    exit 101
 	fi
 fi
