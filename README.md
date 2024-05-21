@@ -5,37 +5,37 @@ Gestionnaire d'Utilisateurs Linux (uM.sh) est un script Bash complet conçu pour
 
 ## Fonctionnalités
 ### Gestion des Utilisateurs :
-Créer un Utilisateur (-c) : Crée un nouvel utilisateur sur le système.
-Modifier un Utilisateur (-m) : Modifie les détails d'un utilisateur existant.
-Supprimer un Utilisateur (-d) : Supprime un utilisateur du système.
-Configuration des Sudoers (-g) : Configure le fichier sudoers pour gérer les privilèges des utilisateurs.
+__Créer un Utilisateur (-c)__ : Crée un nouvel utilisateur sur le système.
+__Modifier un Utilisateur (-m)__ : Modifie les détails d'un utilisateur existant.
+__Supprimer un Utilisateur (-d)__ : Supprime un utilisateur du système.
+__Configuration des Sudoers (-g)__ : Configure le fichier sudoers pour gérer les privilèges des utilisateurs.
 
-Surveillance (-i) : Redémarre la surveillance des droits des utilisateurs et de l'utilisation des commandes.
+__Surveillance (-i)__ : Redémarre la surveillance des droits des utilisateurs et de l'utilisation des commandes.
 
-Aide (-h) : Affiche un message d'aide avec une liste des options disponibles et leurs descriptions.
+__Aide (-h)__ : Affiche un message d'aide avec une liste des options disponibles et leurs descriptions.
 
 ### Méthodes d'Exécution :
 
-Fork (-f) : Exécute des commandes en créant un sous-processus à l'aide de fork.
-Threads (-t) : Exécute des commandes en utilisant des threads.
-Sous-Shell (-s) : Exécute le script dans un sous-shell.
-Journalisation (-l) : Spécifie un répertoire pour stocker les fichiers de journalisation.
+__Fork (-f)__ : Exécute des commandes en créant un sous-processus à l'aide de fork.
+__Threads (-t)__ : Exécute des commandes en utilisant des threads.
+__Sous-Shell (-s)__ : Exécute le script dans un sous-shell.
+__Journalisation (-l)__ : Spécifie un répertoire pour stocker les fichiers de journalisation.
 
 Réinitialisation des Paramètres (-r) : Réinitialise les paramètres aux valeurs par défaut, accessible uniquement aux administrateurs.
 
 ## Description des Fichiers:
-uM.sh : Le script principal qui gère l'ensemble des fonctionnalités.
-printHelp.sh : Affiche le message d'aide et les instructions d'utilisation.
-newUser.sh : Script pour créer un nouvel utilisateur.
-modifyUser.sh : Script pour modifier un utilisateur existant.
-deleteUser.sh : Script pour supprimer un utilisateur.
-configSudoer.sh : Script pour configurer le fichier sudoers.
-surveillance.sh : Script pour surveiller les droits des utilisateurs et l'utilisation des commandes.
-createLogs.sh : Script pour créer des journaux.
-resetParams.sh : Script pour réinitialiser les paramètres aux valeurs par défaut.
-forkLuncher.c : Programme C pour exécuter des commandes en utilisant fork.
-threadLuncher.c : Programme C pour exécuter des commandes en utilisant des threads.
-subshellLuncher.c : Programme C pour exécuter des commandes dans un sous-shell.
+__uM.sh__ : Le script principal qui gère l'ensemble des fonctionnalités.
+__printHelp.sh__ : Affiche le message d'aide et les instructions d'utilisation.
+__newUser.sh__ : Script pour créer un nouvel utilisateur.
+__modifyUser.sh__ : Script pour modifier un utilisateur existant.
+__deleteUser.sh__ : Script pour supprimer un utilisateur.
+__configSudoer.sh__ : Script pour configurer le fichier sudoers.
+__surveillance.sh__ : Script pour surveiller les droits des utilisateurs et l'utilisation des commandes.
+__createLogs.sh__ : Script pour créer des journaux.
+__resetParams.sh__ : Script pour réinitialiser les paramètres aux valeurs par défaut.
+__forkLuncher.c__ : Programme C pour exécuter des commandes en utilisant fork.
+__threadLuncher.c__ : Programme C pour exécuter des commandes en utilisant des threads.
+__subshellLuncher.c__ : Programme C pour exécuter des commandes dans un sous-shell.
 
 ## Utilisation:
 Pour utiliser ce script, vous pouvez exécuter uM.sh avec les options appropriées. Voici quelques exemples d'utilisation des différentes fonctionnalités :
@@ -46,8 +46,8 @@ Pour utiliser ce script, vous pouvez exécuter uM.sh avec les options approprié
 ### Créer un nouvel utilisateur
 ./uM.sh -c
 
-// Modifier un utilisateur existant
-./uM.sh -m nom_utilisateur nouvelle_valeur
+### Modifier un utilisateur existant
+./uM.sh -m nom_utilisateur uname=nouvelle_valeur
 
 ### Supprimer un utilisateur
 ./uM.sh -d
