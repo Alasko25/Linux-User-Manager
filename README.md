@@ -27,7 +27,7 @@ __Sous-Shell (-s)__ : Exécute le script dans un sous-shell.
 
 __Journalisation (-l)__ : Spécifie un répertoire pour stocker les fichiers de journalisation.
 
-Réinitialisation des Paramètres (-r) : Réinitialise les paramètres aux valeurs par défaut, accessible uniquement aux administrateurs.
+__Réinitialisation des Paramètres (-r)__ : Réinitialise les paramètres aux valeurs par défaut, accessible uniquement aux administrateurs.
 
 ## Description des Fichiers:
 __uM.sh__ : Le script principal qui gère l'ensemble des fonctionnalités.
