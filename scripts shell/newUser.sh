@@ -28,10 +28,10 @@ fi
 # Vérification si l'utilisateur a bien été créé
 if id "$username" &>/dev/null; then
     echo "L'utilisateur $username a été créé avec succès."
-    ./createLogs.sh "L'utilisateur $username a été créé avec succès."
+    sudo ./createLogs.sh "L'utilisateur $username a été créé avec succès."
     exit 0
 else
     echo "Erreur: L'utilisateur $username n'a pas pu être créé."
-    ./createLogs.sh "Erreur: L'utilisateur $username n'a pas pu être créé."
+    sudo ./createLogs.sh "Erreur: L'utilisateur $username n'a pas pu être créé."
     exit 101
 fi
