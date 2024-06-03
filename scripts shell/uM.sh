@@ -70,7 +70,7 @@ else
             ;;
         *)
             echo "Option invalide : $1"
-            ./createLogs.sh "Option invalide : $1"
+            sudo./createLogs.sh "Option invalide : $1"
             exit 100
             ;;
     esac
