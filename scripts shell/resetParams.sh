@@ -26,7 +26,7 @@ reset_default_settings() {
     # Réinitialiser le répertoire de journalisation courant au répertoire par défaut
     current_log_directory="$initial_default_log_directory"
     echo "Répertoire de journalisation réinitialisé au répertoire par défaut : $current_log_directory"
-    ./createLogs.sh "Répertoire de journalisation réinitialisé au répertoire par défaut : $current_log_directory"
+    sudo ./createLogs.sh "Répertoire de journalisation réinitialisé au répertoire par défaut : $current_log_directory"
 
     # Mettre à jour le répertoire par défaut courant et sauvegarder dans un fichier
     current_default_log_directory="$initial_default_log_directory"
