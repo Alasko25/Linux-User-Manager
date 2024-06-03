@@ -20,7 +20,7 @@
 		    echo "Utilisateur $username n'existe pas dans le système."
 		    
 		    #creation de log
-		    ./createLogs.sh "Utilisateur $username n'existe pas dans le système."
+		    sudo ./createLogs.sh "Utilisateur $username n'existe pas dans le système."
 		    
 		    exit 103
 		fi
@@ -50,7 +50,7 @@
 		echo "Utilisateur $username configuré en tant que sudoer dans le fichier sudoers."
 		
 		# creation de log
-		./createLogs.sh "Utilisateur $username configuré en tant que sudoer dans le fichier sudoers."
+		sudo ./createLogs.sh "Utilisateur $username configuré en tant que sudoer dans le fichier sudoers."
 		
 		exit 0
             ;;
@@ -63,7 +63,7 @@
                 echo "Utilisateur $username n'existe pas dans le système."
                 
                 #creation de log
-                ./createLogs.sh "Utilisateur $username n'existe pas dans le système."
+                sudo ./createLogs.sh "Utilisateur $username n'existe pas dans le système."
                 
                 exit 103
             fi
@@ -73,7 +73,7 @@
                 echo "Utilisateur $username n'est pas sudoer."
                 
                 #creation de log
-                ./createLogs.sh "Utilisateur $username n'est pas sudoer."
+                sudo ./createLogs.sh "Utilisateur $username n'est pas sudoer."
                 
                 exit 104
             fi
@@ -151,7 +151,7 @@
 		            echo "Option invalide."
 		            
 		            #creation de log
-               		    ./createLogs.sh "Option invalide."
+               		    sudo ./createLogs.sh "Option invalide."
                		    
 		            exit 101
 		            ;;
@@ -162,7 +162,7 @@
 		    echo "Paramètres pour $username mis à jour dans le fichier sudoers."
 		    
 		    #creation de log
-               	    ./createLogs.sh "Paramètres pour $username mis à jour dans le fichier sudoers."
+               	    sudo ./createLogs.sh "Paramètres pour $username mis à jour dans le fichier sudoers."
                	    
                	    exit 0		    
             fi
@@ -184,7 +184,7 @@
             echo "Utilisateur $username supprimé en tant que sudoer dans le fichier sudoers."
             
             #creation de log
-            ./createLogs.sh "Utilisateur $username supprimé en tant que sudoer dans le fichier sudoers."
+            sudo ./createLogs.sh "Utilisateur $username supprimé en tant que sudoer dans le fichier sudoers."
             
             exit 0
             ;;
@@ -192,7 +192,7 @@
             echo "Option invalide."
             
             #creation de log
-            ./createLogs.sh "Option invalide."
+            sudo ./createLogs.sh "Option invalide."
             
             exit 101
             ;;
