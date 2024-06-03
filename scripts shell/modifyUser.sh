@@ -16,14 +16,14 @@ shift
 # Vérifier si le nom d'utilisateur est fourni
 if [ -z "$username" ]; then
     echo "Nom d'utilisateur manquant."
-    ./createLogs.sh "Nom d'utilisateur manquant."
+    sudo ./createLogs.sh "Nom d'utilisateur manquant."
     exit 101
 fi
 
 # Vérifier si l'utilisateur existe
 if ! id "$username" &>/dev/null; then
     echo "L'utilisateur $username n'existe pas."
-    ./createLogs.sh "L'utilisateur $username n'existe pas."
+    sudo ./createLogs.sh "L'utilisateur $username n'existe pas."
     exit 101
 fi
 
@@ -51,7 +51,7 @@ for arg in "$@"; do
             ;;
         *)
             echo "Option invalide : $arg" >> /dev/null
-	    ./createLogs.sh echo "Option invalide : $arg"
+	    sudo ./createLogs.sh echo "Option invalide : $arg"
             exit 101
             ;;
     esac
@@ -74,13 +74,13 @@ if $change_password; then
             echo "$username:$password" | sudo chpasswd
         else
            echo "Aucun mot de passe fourni."
-	   ./createLogs.sh "Aucun mot de passe fourni."
+	   sudo ./createLogs.sh "Aucun mot de passe fourni."
         fi
     else
         # Modification du mot de passe.
         if ! sudo -u "$username" passwd "$username" ; then
             echo "Mot de passe incorrect pour l'utilisateur $username. La modification est annulée."
-	    ./createLogs.sh "Mot de passe incorrect pour l'utilisateur $username. La modification est annulée."
+	    sudo ./createLogs.sh "Mot de passe incorrect pour l'utilisateur $username. La modification est annulée."
             exit 101
         fi
     fi
@@ -99,7 +99,7 @@ if $kayn_option; then
 		usermod_command+=" -g $primary_group"
 	    else
 		echo "Le groupe primaire $primary_group n'existe pas."
-  		./createLogs.sh "Le groupe primaire $primary_group n'existe pas."
+  		sudo ./createLogs.sh "Le groupe primaire $primary_group n'existe pas."
 		exit 101
 	    fi
 	fi
@@ -110,7 +110,7 @@ if $kayn_option; then
 		usermod_command+=" -G $secondary_group"
 	    else
 		echo "Le groupe secondaire $secondary_group n'existe pas."
-  		./createLogs.sh "Le groupe secondaire $secondary_group n'existe pas."
+  		sudo ./createLogs.sh "Le groupe secondaire $secondary_group n'existe pas."
 		exit 101
 	    fi
 	fi
@@ -123,11 +123,11 @@ if $kayn_option; then
 	# Vérifier si la commande usermod a réussi
 	if [ $? -eq 0 ]; then
 	    echo "Informations de l'utilisateur $username modifiées avec succès."
-     	    ./createLogs.sh "Informations de l'utilisateur $username modifiées avec succès."
+     	    sudo ./createLogs.sh "Informations de l'utilisateur $username modifiées avec succès."
 	    exit 0
 	else
 	    echo "Échec de la modification des informations de l'utilisateur $username."
-     	    ./createLogs.sh "Échec de la modification des informations de l'utilisateur $username."
+     	    sudo ./createLogs.sh "Échec de la modification des informations de l'utilisateur $username."
 	    exit 101
 	fi
 fi
