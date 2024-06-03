@@ -13,9 +13,9 @@ if id "$username" &>/dev/null; then
     sudo sed -i "/^$username /d" /etc/sudoers
     
     echo "Utilisateur $username supprimé avec succès."
-    ./createLogs.sh "Utilisateur $username supprimé avec succès."
+    sudo ./createLogs.sh "Utilisateur $username supprimé avec succès."
 else
     echo "Utilisateur $username non trouvé."
-    ./createLogs.sh "Utilisateur $username non trouvé."
+    sudo ./createLogs.sh "Utilisateur $username non trouvé."
     exit 101
 fi
