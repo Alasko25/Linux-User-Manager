@@ -108,5 +108,6 @@ Ce projet est sous licence MIT. Voir le fichier LICENSE pour plus de détails.
 
 ## Auteurs
 Touré Alassane - Alasko25
-Konsebo Wendbénédo Albéric Darius - darius-konsebo
+Konsebo Wendbénédo Albéric Darius - Darius Konsebo - Jaouad Salah-Eddine
+
 Ce projet vise à simplifier les tâches de gestion des utilisateurs et du système sous Linux en fournissant des scripts polyvalent et conviviaux. Profitez de la gestion de votre environnement Linux en toute simplicité !
